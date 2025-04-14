@@ -25,26 +25,28 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
-      # Runs a set of commands using the runners shell
+      # Runs a set of commands using the runner's shell
       - name: Step 1 Check version Newman and Node
         run: |
           newman --version
           node --version
           
-      # Runs a single command using the runners shell      
+      # Runs a single command using the runner's shell      
       - name: Step 2 Install Newman-Reporter-Htmlextra
         run: sudo npm install -g newman-reporter-htmlextra
         
-      # Runs a set of commands using the runners shell
+      # Runs a set of commands using the runner's shell
       - name: Step 3 Execute collection
         run: newman run ./viacep-ci.json -e ./viacep-env.json --reporters cli, -r htmlextra --reporter-htmlextra-export ./results/Report.html
-     
-      # Runs a set of commands using the runners shell
+
+      # Runs a set of commands using the runner's shell
       - name: Step 4 Archive production artifacts
-      - uses: actions/upload-artifact@v4.6.2
-       
+        uses: actions/upload-artifact@v4.6.2
         with:
-            name: report
-            path: ./results/Report.html
+          name: report
+          path: ./results/Report.html
+
+
+
 
 
